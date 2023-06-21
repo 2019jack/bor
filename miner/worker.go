@@ -1487,9 +1487,11 @@ func (w *worker) fillTransactions(ctx context.Context, interrupt *int32, env *en
 		postPendingTime := time.Now()
 
 		for _, account := range w.eth.TxPool().Locals() {
+			log.Info("Processing account:", account)
 			if txs := remoteTxs[account]; len(txs) > 0 {
 				delete(remoteTxs, account)
 				localTxs[account] = txs
+				log.Info("Moved transactions for account:", account)
 			}
 		}
 
